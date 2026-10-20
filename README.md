@@ -10,15 +10,19 @@ Built with the same deterministic rules as the SynerGro / Seraphina stack:
 - Honest errors
 
 ## Python core
-`solar_system.py` provides heliocentric positions and velocities for Earth, Mars, and Pluto using the real DE421 ephemeris.
+`solar_system.py` provides heliocentric positions and velocities for **all major planets** (Mercury through Pluto) plus the Sun using the real DE421 ephemeris.
 
 ```bash
 pip install skyfield
 python solar_system.py --date 2026-10-19
+python solar_system.py --date 2026-10-19 --bodies earth mars jupiter
 ```
 
+### Galactic pull
+DE421 is a solar-system barycentric ephemeris. It does **not** include the galactic tide or external stellar perturbations. Within the DE421 frame the results are fully deterministic. For applications that require galactic-scale forces, a higher-order ephemeris (e.g. DE440) or an explicit galactic potential model would be needed; that remains future work and must stay deterministic.
+
 ## C++ side
-`solar_system.hpp` is a pure header stub ready for a future deterministic C++ implementation (or binding to the Python state).
+`include/solar_system.hpp` is a pure header stub ready for a future deterministic C++ implementation (or binding to the Python state).
 
 ## Seraphina.agi
 This repo is designed to sit beside the open Seraphina.AGIv1.0.8 (MIT). The Python state can be consumed by Seraphina as an external deterministic sensor or decision input. No proprietary Glyph code is included here.

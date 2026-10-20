@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
 Open solar system core.
-Authoritative JPL DE421 positions and velocities.
+Authoritative JPL DE421 positions and velocities for all major planets.
 Deterministic, pure, no external calls after kernel download.
+
+Galactic pull: DE421 is a solar-system barycentric ephemeris. The galactic
+tide and stellar perturbations are not included in the kernel. For full
+determinism at galactic scales, a higher-order model (e.g. DE440 or a
+galactic potential) would be required. This module remains strictly
+deterministic within the DE421 frame.
 """
 
 import argparse
@@ -13,10 +19,17 @@ print("Loading JPL DE421...")
 eph = load('de421.bsp')
 ts = load.timescale()
 
+# All major bodies available in DE421
 BODIES = {
     'sun': eph['sun'],
+    'mercury': eph['mercury'],
+    'venus': eph['venus'],
     'earth': eph['earth'],
     'mars': eph['mars'],
+    'jupiter': eph['jupiter barycenter'],
+    'saturn': eph['saturn barycenter'],
+    'uranus': eph['uranus barycenter'],
+    'neptune': eph['neptune barycenter'],
     'pluto': eph['pluto barycenter'],
 }
 
@@ -35,6 +48,8 @@ def get_state(body_name, t):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--date', default=None, help='YYYY-MM-DD (default now)')
+    parser.add_argument('--bodies', nargs='*', default=list(BODIES.keys()),
+                        help='Bodies to report (default: all)')
     args = parser.parse_args()
 
     if args.date:
@@ -44,10 +59,14 @@ def main():
         t = ts.now()
 
     print(f"Time: {t.utc_strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
-    for name in ['earth', 'mars', 'pluto']:
+    print("Note: DE421 is solar-system barycentric. Galactic tide is not included.\n")
+    for name in args.bodies:
+        if name not in BODIES:
+            print(f"{name}: not available in DE421")
+            continue
         s = get_state(name, t)
-        print(f"{name:6s} pos {s['pos_au']}")
-        print(f"       vel {s['vel_au_per_day']} AU/day")
+        print(f"{name:8s} pos {s['pos_au']}")
+        print(f"         vel {s['vel_au_per_day']} AU/day")
 
 if __name__ == '__main__':
     main()
