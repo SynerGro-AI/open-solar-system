@@ -2,7 +2,8 @@
 """
 Open solar system core.
 Authoritative JPL DE421 positions and velocities for all major planets,
-Earth's Moon, Jupiter's Galilean moons, and Saturn's major moons.
+Earth's Moon, Jupiter's Galilean moons, Saturn's major moons,
+and Uranus's major moons.
 Deterministic, pure, no external calls after kernel download.
 
 Galactic pull: DE421 is a solar-system barycentric ephemeris. The galactic
@@ -43,6 +44,11 @@ BODIES = {
     'hyperion': eph['hyperion'],
     'iapetus': eph['iapetus'],
     'uranus': eph['uranus barycenter'],
+    'miranda': eph['miranda'],
+    'ariel': eph['ariel'],
+    'umbriel': eph['umbriel'],
+    'titania': eph['titania'],
+    'oberon': eph['oberon'],
     'neptune': eph['neptune barycenter'],
     'pluto': eph['pluto barycenter'],
 }
