@@ -14,11 +14,12 @@ Built with the same deterministic rules as the SynerGro / Seraphina stack:
 - All major planets (Mercury through Pluto) + the Sun
 - Earth's Moon
 - Jupiter's Galilean moons (Io, Europa, Ganymede, Callisto)
+- Saturn's major moons (Mimas, Enceladus, Tethys, Dione, Rhea, Titan, Hyperion, Iapetus)
 
 ```bash
 pip install skyfield
 python solar_system.py --date 2026-10-19
-python solar_system.py --date 2026-10-19 --bodies earth moon io europa ganymede callisto
+python solar_system.py --date 2026-10-19 --bodies saturn titan rhea iapetus
 ```
 
 ### Galactic pull

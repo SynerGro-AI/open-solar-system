@@ -2,7 +2,7 @@
 """
 Open solar system core.
 Authoritative JPL DE421 positions and velocities for all major planets,
-Earth's Moon, and Jupiter's Galilean moons.
+Earth's Moon, Jupiter's Galilean moons, and Saturn's major moons.
 Deterministic, pure, no external calls after kernel download.
 
 Galactic pull: DE421 is a solar-system barycentric ephemeris. The galactic
@@ -34,6 +34,14 @@ BODIES = {
     'ganymede': eph['ganymede'],
     'callisto': eph['callisto'],
     'saturn': eph['saturn barycenter'],
+    'mimas': eph['mimas'],
+    'enceladus': eph['enceladus'],
+    'tethys': eph['tethys'],
+    'dione': eph['dione'],
+    'rhea': eph['rhea'],
+    'titan': eph['titan'],
+    'hyperion': eph['hyperion'],
+    'iapetus': eph['iapetus'],
     'uranus': eph['uranus barycenter'],
     'neptune': eph['neptune barycenter'],
     'pluto': eph['pluto barycenter'],
@@ -71,8 +79,8 @@ def main():
             print(f"{name}: not available in DE421")
             continue
         s = get_state(name, t)
-        print(f"{name:10s} pos {s['pos_au']}")
-        print(f"           vel {s['vel_au_per_day']} AU/day")
+        print(f"{name:12s} pos {s['pos_au']}")
+        print(f"             vel {s['vel_au_per_day']} AU/day")
 
 if __name__ == '__main__':
     main()
