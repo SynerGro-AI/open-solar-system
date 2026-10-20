@@ -10,12 +10,15 @@ Built with the same deterministic rules as the SynerGro / Seraphina stack:
 - Honest errors
 
 ## Python core
-`solar_system.py` provides heliocentric positions and velocities for **all major planets** (Mercury through Pluto) plus the Sun using the real DE421 ephemeris.
+`solar_system.py` provides heliocentric positions and velocities for:
+- All major planets (Mercury through Pluto) + the Sun
+- Earth's Moon
+- Jupiter's Galilean moons (Io, Europa, Ganymede, Callisto)
 
 ```bash
 pip install skyfield
 python solar_system.py --date 2026-10-19
-python solar_system.py --date 2026-10-19 --bodies earth mars jupiter
+python solar_system.py --date 2026-10-19 --bodies earth moon io europa ganymede callisto
 ```
 
 ### Galactic pull
